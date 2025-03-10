@@ -5,65 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YORUSHIKLE: 每日 Yorushika 猜歌游戏</title>
   <link rel="icon" href="favicon (1).ico" type="image/png">
-  <link href="styles.css" rel="stylesheet">
+  <!-- 引入 Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* 背景图片及黑色半透明遮罩 */
+    /* 全局样式 */
     body {
       margin: 0;
       padding: 0;
       background: url('wp8907820.jpg') no-repeat center center fixed;
       background-size: cover;
-      font-family: Arial, sans-serif;
+      font-family: 'Noto Sans SC', sans-serif;
       position: relative;
-      text-align: center; /* 全局文字居中 */
+      text-align: center;
+      color: #fdfdfd;
     }
     body::before {
       content: "";
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.55);
       z-index: -1;
     }
-
-    /* 整体容器：不再使用底部色块，仅作为居中包裹 */
+    /* 主容器：半透明、模糊背景与艺术边框 */
     .game-container {
       width: 90%;
       max-width: 900px;
       margin: 40px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
-
-    /* 标题区域单独包装，纯白背景，使用 inline-block 便于精确居中 */
+    /* 标题区域 */
     .title-container {
-      background-color: #fff;
+      background: rgba(255, 255, 255, 0.2);
       display: inline-block;
       padding: 20px 40px;
       border-radius: 8px;
       margin-bottom: 10px;
+      border: 2px solid rgba(255,255,255,0.4);
     }
-
     .title {
       font-size: 64px;
-      font-family: 'Times New Roman', serif;
-      color: #1d1d1d;
+      font-family: 'Playfair Display', serif;
+      color: #fdfdfd;
       margin: 0;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
     }
-
     .description {
       font-size: 20px;
-      color: #666;
+      color: #ddd;
       margin: 10px 0 20px;
     }
-
-    /* Logo 居中 */
     .logo img {
       max-width: 100px;
       display: block;
       margin: 0 auto 20px;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
     }
-
-    /* 按钮样式优化 */
+    /* 按钮样式：渐变背景、圆角、阴影与平滑过渡 */
     button {
-      background-color: #007bff;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
       color: #fff;
       border: none;
       padding: 12px 25px;
@@ -71,63 +75,71 @@
       border-radius: 25px;
       cursor: pointer;
       font-size: 16px;
-      transition: background-color 0.3s, transform 0.3s;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
     button:hover {
-      background-color: #0056b3;
+      background: linear-gradient(135deg, #feb47b, #ff7e5f);
       transform: scale(1.05);
     }
-
+    /* 输入框美化 */
     .guess-input {
       width: calc(100% - 24px);
       padding: 12px;
       margin: 10px auto;
       border-radius: 8px;
-      border: 1px solid #ccc;
+      border: 1px solid rgba(255,255,255,0.4);
       font-size: 16px;
       display: block;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      outline: none;
+      transition: border 0.3s;
     }
-
+    .guess-input:focus {
+      border: 1px solid #ff7e5f;
+    }
     /* 音频片段区域 */
     .audio-segments {
       margin-top: 20px;
     }
     .segment {
       margin: 20px 0;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 10px;
+      background: rgba(0,0,0,0.3);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
-
-    /* Footer 去除背景色 */
+    .segment p {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    /* 游戏信息 */
+    .game-info p {
+      margin: 5px 0;
+      font-size: 18px;
+      color: #eee;
+    }
+    /* Footer 样式 */
     .footer {
       text-align: center;
       margin-top: 30px;
       font-size: 14px;
-      color: #aaa;
-      background: transparent;
+      color: #ccc;
     }
-
-    /* 统计表格样式 */
-    .stats-table {
-      margin-top: 30px;
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    .stats-table th, .stats-table td {
-      padding: 10px;
-      text-align: center;
-      border: 1px solid #ddd;
-    }
-
-    .stats-table th {
-      background-color: #f4f4f4;
-    }
-
-    .stats-table td.correct {
-      color: green;
-    }
-
-    .stats-table td.incorrect {
-      color: red;
+    /* 响应式设计 */
+    @media screen and (max-width: 600px) {
+      .title {
+        font-size: 36px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+      .guess-input {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
@@ -138,19 +150,19 @@
     <img src="apple-touch-icon.png" alt="Yorushika Logo">
   </div>
 
-  <!-- 标题区域：纯白色背景且居中 -->
+  <!-- 标题区域 -->
   <div class="title-container">
     <h1 class="title">YORUSHIKLE</h1>
   </div>
   <p class="description">a daily Yorushika guess game</p>
 
-  <!-- 游戏信息（显示当前歌曲序号） -->
+  <!-- 游戏信息 -->
   <div class="game-info">
     <p id="songInfo">今天的挑战: 歌曲 1/5</p>
     <p id="dayInfo">Day #1</p>
   </div>
 
-  <!-- Audio Segments Section: 每首歌有 3 个片段 -->
+  <!-- 音频片段区域 -->
   <div class="audio-segments">
     <!-- 片段 1 -->
     <div class="segment" id="segment1">
@@ -184,19 +196,6 @@
     <p>歌名：<span id="songName"></span></p>
   </div>
 
-  <!-- 统计表格 -->
-  <table class="stats-table" id="statsTable">
-    <thead>
-    <tr>
-      <th>歌曲</th>
-      <th>猜测结果</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- 猜测结果将动态填充 -->
-    </tbody>
-  </table>
-
   <!-- Footer Section -->
   <footer class="footer">
     <p>made by a n-buna fan</p>
@@ -219,19 +218,16 @@
   // 初始化加载当前歌曲
   function loadSong() {
     currentSegment = 1;
-    // 显示第一片段，隐藏其他片段
     document.getElementById('segment1').style.display = 'block';
     document.getElementById('segment2').style.display = 'none';
     document.getElementById('segment3').style.display = 'none';
-    // 清空猜歌输入框
     document.getElementById('guessInput').value = '';
-    // 隐藏歌名显示区
     document.getElementById('songNameDisplay').style.display = 'none';
-    // 更新音频片段的 src 属性
+
     document.getElementById('audioSegment1').src = songs[currentSong].segments[0];
     document.getElementById('audioSegment2').src = songs[currentSong].segments[1];
     document.getElementById('audioSegment3').src = songs[currentSong].segments[2];
-    // 更新游戏信息
+
     document.getElementById('songInfo').innerText = `今天的挑战: 歌曲 ${currentSong + 1}/5`;
     document.getElementById('dayInfo').innerText = `Day #${currentSong + 1}`;
   }
@@ -246,16 +242,7 @@
   // 用户提交猜歌
   function submitGuess() {
     const guess = document.getElementById('guessInput').value.trim();
-    // 判断时不区分大小写，检查猜测是否匹配
     const isCorrect = songs[currentSong].name.some(songName => guess.toLowerCase() === songName.toLowerCase());
-
-    // 更新统计表
-    const resultRow = document.createElement('tr');
-    resultRow.innerHTML = `
-      <td>${songs[currentSong].name.join(", ")}</td>
-      <td class="${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? '正确' : '错误'}</td>
-    `;
-    document.getElementById('statsTable').querySelector('tbody').appendChild(resultRow);
 
     if (isCorrect) {
       score++;
@@ -295,12 +282,12 @@
   // 显示最终得分页面
   function showResults() {
     document.body.innerHTML = `
-      <div style="text-align: center; padding: 50px; color: #fff;">
-        <h1>游戏结束</h1>
-        <p style="font-size: 24px;">你的得分：${score} / ${songs.length}</p>
-        <button onclick="location.reload()">再玩一次</button>
-      </div>
-    `;
+        <div style="text-align: center; padding: 50px; color: #fff;">
+          <h1>游戏结束</h1>
+          <p style="font-size: 24px;">你的得分：${score} / ${songs.length}</p>
+          <button onclick="location.reload()">再玩一次</button>
+        </div>
+      `;
   }
 
   // 页面加载完成后初始化第一首歌

@@ -1,100 +1,108 @@
-/* Reset some default styles */
-* {
+/* 基本布局 */
+body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-/* Body and background */
-body {
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #222222;
-}
-
-/* Game Container */
-.game-container {
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 10px;
   text-align: center;
-  width: 80%;
-  max-width: 600px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: url('wp8907820.jpg') no-repeat center center fixed;
+  background-size: cover;
 }
 
-/* Logo */
-.logo img {
-  width: 150px;
-  margin-bottom: 20px;
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
-/* Title */
-.title {
-  font-size: 24px;
-  font-weight: bold;
+/* 游戏容器 */
+.game-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.title-container {
+  background-color: #fff;
+  display: inline-block;
+  padding: 20px 40px;
+  border-radius: 8px;
   margin-bottom: 10px;
 }
 
-/* Description */
+.title {
+  font-size: 64px;
+  font-family: 'Times New Roman', serif;
+  color: #1d1d1d;
+  margin: 0;
+}
+
 .description {
+  font-size: 20px;
+  color: #666;
+  margin: 10px 0 20px;
+}
+
+.logo img {
+  max-width: 100px;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  cursor: pointer;
   font-size: 16px;
-  margin-bottom: 20px;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-/* Game Info */
-.game-info {
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+input {
+  padding: 12px;
+  width: calc(100% - 24px);
+  border-radius: 8px;
+  margin: 10px auto;
+  font-size: 16px;
+  display: block;
+}
+
+footer {
+  margin-top: 30px;
   font-size: 14px;
-  color: #777;
-  margin-bottom: 30px;
+  color: #aaa;
 }
 
-/* Audio Player */
-.audio-player {
+/* 音频片段 */
+.audio-segments {
   margin-top: 20px;
 }
 
-.play-button, .skip-button {
-  background-color: #ff4081;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 10px;
+.segment {
+  margin: 20px 0;
 }
 
-.play-button:hover, .skip-button:hover {
-  background-color: #f50057;
-}
+/* 响应式布局 */
+@media screen and (max-width: 600px) {
+  .title {
+    font-size: 36px;
+  }
 
-/* Guess Input */
-.guess-input {
-  width: 80%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 2px solid #ff4081;
-  border-radius: 5px;
-  font-size: 16px;
-}
+  button {
+    padding: 10px 20px;
+  }
 
-/* Footer */
-.footer {
-  margin-top: 30px;
-  font-size: 14px;
-  color: #888;
-}
-
-.footer a {
-  color: #ff4081;
-  text-decoration: none;
-}
-
-.footer a:hover {
-  text-decoration: underline;
+  .guess-input {
+    font-size: 14px;
+  }
 }

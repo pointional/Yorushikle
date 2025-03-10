@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>结果页面</title>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="game-container">
+  <h1>游戏结束</h1>
+  <p>你的得分: <span id="score"></span></p>
+  <p>恭喜你猜对了《<span id="song"></span>》!</p>
+  <button onclick="window.location.href = 'index.html'">再玩一次</button>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  document.getElementById('score').textContent = params.get('score');
+  document.getElementById('song').textContent = params.get('song');
+</script>
+</body>
+</html>
